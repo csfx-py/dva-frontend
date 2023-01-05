@@ -8,7 +8,9 @@ function Loading() {
     <motion.div
       className="backdrop"
       initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.75 }}
+      exit={{ opacity: 0 }}
     >
       <AcUnit
         component={motion.svg}
