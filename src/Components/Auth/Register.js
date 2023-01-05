@@ -69,7 +69,11 @@ export default function Register({ setInRegister }) {
 
     if (registered.success) {
       enqueueSnackbar("Registered Successfully", { variant: "success" });
-      navigate("/Dashboard");
+      if (registered?.accessLevel === "admin") {
+        navigate("/admin/dashboard");
+        return;
+      }
+      navigate("/client/dashboard");
     } else {
       enqueueSnackbar(`Registration Failed ${registered.error?.message}`, {
         variant: "error",
@@ -82,7 +86,7 @@ export default function Register({ setInRegister }) {
       component={motion.div}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.75 }}
       exit={{ opacity: 0 }}
       container
       direction="column"
