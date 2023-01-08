@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AvatarImage from "../../Assets/avatar.png";
 import { UserContext } from "../../Contexts/UserContext";
 
@@ -62,6 +62,22 @@ function Nav() {
         navigate("/admin/dashboard");
       },
     },
+    {
+      id: "admin Departments",
+      name: "Departments",
+      handler: () => {
+        setAnchorElNav(null);
+        navigate("/admin/dept");
+      },
+    },
+    {
+      id: "admin Students",
+      name: "Students",
+      handler: () => {
+        setAnchorElNav(null);
+        navigate("/admin/students");
+      },
+    },
   ];
 
   const handleOpenUserMenu = (e) => {
@@ -95,8 +111,8 @@ function Nav() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href={"/"}
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -175,8 +191,8 @@ function Nav() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href={"/"}
+            component={Link}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
