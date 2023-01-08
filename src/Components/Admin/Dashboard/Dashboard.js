@@ -35,22 +35,34 @@ export default function DashboardAdmin() {
 
   const [rows, setRows] = useState([]);
 
-  const handleUpdate = async (id, accessLevel) => {
-    const res = await userApproval(id, accessLevel);
+  const handleUpdate = async (id, al) => {
+    const res = await userApproval(id, al);
     if (res.success) {
-      setRows(res.users);
+      console.log(res);
+      setRows(
+        res.users.map((user) => ({ ...user, newAccessLevel: user.accessLevel }))
+      );
     }
   };
 
   useEffect(() => {
     getAllUsers().then((res) => {
-      setRows(res.users);
+      setRows(
+        res.users.map((user) => ({ ...user, newAccessLevel: user.accessLevel }))
+      );
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Container maxWidth="lg">
+    <Container
+      maxWidth="lg"
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <Paper sx={{ p: 2, borderRadius: 5 }} elevation={5}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -58,7 +70,7 @@ export default function DashboardAdmin() {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              New users can be onboard pending approval from the admin
+              New users pending approval from the admin
             </Typography>
             {rows?.length > 0 ? (
               <Box sx={{ mt: 2 }}>
@@ -105,7 +117,7 @@ export default function DashboardAdmin() {
                                 name="accessLevel"
                                 id="accessLevel"
                                 label="Access Level"
-                                value={row.newAccessLevel || row.accessLevel}
+                                value={row.newAccessLevel}
                                 sx={{ width: 200 }}
                                 onChange={(e) => {
                                   setRows((prev) => {
@@ -123,16 +135,8 @@ export default function DashboardAdmin() {
                                   <MenuItem
                                     key={level.id}
                                     value={level.id}
-                                    selected={
-                                      level.id ===
-                                      (row.newAccessLevel || row.accessLevel)
-                                    }
+                                    selected={level.id === row.newAccessLevel}
                                   >
-                                    {console.log(
-                                      level.name,
-                                      level.id ===
-                                        (row.newAccessLevel || row.accessLevel)
-                                    )}
                                     {level.name}
                                   </MenuItem>
                                 ))}
@@ -163,9 +167,11 @@ export default function DashboardAdmin() {
           </Grid>
         </Grid>
       </Paper>
-      <div style={{
-        height: "200vh"
-      }}></div>
+      <div
+        style={{
+          height: "200vh",
+        }}
+      ></div>
     </Container>
   );
 }
