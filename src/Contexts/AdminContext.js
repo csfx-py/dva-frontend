@@ -125,6 +125,21 @@ export const AdminProvider = ({ children }) => {
 
       if (!res.data?.success) throw new Error(res.data.message);
 
+      return { success: true, students: res.data.students };
+    } catch (error) {
+      return { success: false, error: error.response?.data || error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getStudentsGroupedDept = async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/admin/students-group-dept");
+
+      if (!res.data?.success) throw new Error(res.data.message);
+
       return { success: true, groups: res.data.groups };
     } catch (error) {
       return { success: false, error: error.response?.data || error };
@@ -142,7 +157,7 @@ export const AdminProvider = ({ children }) => {
 
       if (!res.data?.success) throw new Error(res.data.message);
 
-      const { groups } = await getStudents();
+      const { groups } = await getStudentsGroupedDept();
 
       return { success: true, groups };
     } catch (error) {
@@ -162,7 +177,7 @@ export const AdminProvider = ({ children }) => {
 
       if (!res.data?.success) throw new Error(res.data.message);
 
-      const { groups } = await getStudents();
+      const { groups } = await getStudentsGroupedDept();
 
       return { success: true, groups };
     } catch (error) {
@@ -181,7 +196,7 @@ export const AdminProvider = ({ children }) => {
 
       if (!res.data?.success) throw new Error(res.data.message);
 
-      const { groups } = await getStudents();
+      const { groups } = await getStudentsGroupedDept();
 
       return { success: true, groups };
     } catch (error) {
@@ -201,6 +216,7 @@ export const AdminProvider = ({ children }) => {
         updateDept,
         deleteDept,
         getStudents,
+        getStudentsGroupedDept,
         addStudent,
         updateStudent,
         deleteStudent,

@@ -16,8 +16,13 @@ import TableComp from "../../Components/Admin/Students/TableComp";
 import { AdminContext } from "../../Contexts/AdminContext";
 
 export default function Students() {
-  const { getDepts, getStudents, addStudent, updateStudent, deleteStudent } =
-    useContext(AdminContext);
+  const {
+    getDepts,
+    getStudentsGroupedDept,
+    addStudent,
+    updateStudent,
+    deleteStudent,
+  } = useContext(AdminContext);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -25,7 +30,7 @@ export default function Students() {
   const [depts, setDepts] = useState([]);
 
   useEffect(() => {
-    getStudents().then((res) => {
+    getStudentsGroupedDept().then((res) => {
       if (res.success) {
         setGroups(res.groups);
       }
@@ -52,6 +57,7 @@ export default function Students() {
     }
 
     const res = await addStudent(data);
+    console.log(res);
 
     if (res.success) {
       setGroups(res.groups);
@@ -59,7 +65,7 @@ export default function Students() {
       return true;
     }
 
-    enqueueSnackbar(res.message, { variant: "error" });
+    enqueueSnackbar(res.error?.message, { variant: "error" });
     return false;
   };
 
@@ -90,7 +96,7 @@ export default function Students() {
       enqueueSnackbar("Student updated successfully", { variant: "success" });
       return;
     }
-    enqueueSnackbar("Something went wrong", { variant: "error" });
+    enqueueSnackbar(res.error?.message, { variant: "error" });
   };
 
   const handleDelete = async (id) => {
@@ -108,7 +114,7 @@ export default function Students() {
         enqueueSnackbar("Student deleted successfully", { variant: "success" });
         return;
       }
-      enqueueSnackbar("Something went wrong", { variant: "error" });
+      enqueueSnackbar(res.error?.message, { variant: "error" });
     }
   };
 

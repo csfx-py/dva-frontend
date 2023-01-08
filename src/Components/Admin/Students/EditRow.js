@@ -9,10 +9,10 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import { motion } from "framer-motion";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { motion } from "framer-motion";
 
 export default function EditRow({ setRows, row, index, handleEdit, depts }) {
   const handleChange = (e, index) => {
