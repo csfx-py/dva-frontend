@@ -22,22 +22,6 @@ export const AdminProvider = ({ children }) => {
     }
   };
 
-  const getDepts = async () => {
-    try {
-      setLoading(true);
-
-      const res = await API.get("/admin/depts");
-
-      if (!res.data?.success) throw new Error(res.data.message);
-
-      return { success: true, depts: res.data.depts };
-    } catch (error) {
-      return { success: false, error: error.response?.data || error };
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const userApproval = async (userId, accessLevel) => {
     try {
       setLoading(true);
@@ -51,6 +35,22 @@ export const AdminProvider = ({ children }) => {
       const { users } = await getAllUsers();
 
       return { success: true, users };
+    } catch (error) {
+      return { success: false, error: error.response?.data || error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getDepts = async () => {
+    try {
+      setLoading(true);
+
+      const res = await API.get("/admin/depts");
+
+      if (!res.data?.success) throw new Error(res.data.message);
+
+      return { success: true, depts: res.data.depts };
     } catch (error) {
       return { success: false, error: error.response?.data || error };
     } finally {
@@ -118,6 +118,79 @@ export const AdminProvider = ({ children }) => {
     }
   };
 
+  const getStudents = async () => {
+    try {
+      setLoading(true);
+      const res = await API.get("/admin/students");
+
+      if (!res.data?.success) throw new Error(res.data.message);
+
+      return { success: true, groups: res.data.groups };
+    } catch (error) {
+      return { success: false, error: error.response?.data || error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addStudent = async (data) => {
+    try {
+      setLoading(true);
+      const res = await API.post("/admin/create-student", {
+        ...data,
+      });
+
+      if (!res.data?.success) throw new Error(res.data.message);
+
+      const { groups } = await getStudents();
+
+      return { success: true, groups };
+    } catch (error) {
+      return { success: false, error: error.response?.data || error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateStudent = async (sid, data) => {
+    try {
+      setLoading(true);
+      const res = await API.put("/admin/update-student", {
+        sid,
+        data,
+      });
+
+      if (!res.data?.success) throw new Error(res.data.message);
+
+      const { groups } = await getStudents();
+
+      return { success: true, groups };
+    } catch (error) {
+      return { success: false, error: error.response?.data || error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteStudent = async (studentId) => {
+    try {
+      setLoading(true);
+      const res = await API.delete("/admin/delete-student", {
+        data: { studentId },
+      });
+
+      if (!res.data?.success) throw new Error(res.data.message);
+
+      const { groups } = await getStudents();
+
+      return { success: true, groups };
+    } catch (error) {
+      return { success: false, error: error.response?.data || error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -127,6 +200,10 @@ export const AdminProvider = ({ children }) => {
         addDept,
         updateDept,
         deleteDept,
+        getStudents,
+        addStudent,
+        updateStudent,
+        deleteStudent,
       }}
     >
       {children}
