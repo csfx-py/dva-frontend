@@ -11,6 +11,7 @@ import { AdminProvider } from "./Contexts/AdminContext";
 import { LoadingContext } from "./Contexts/LoadingContext";
 import { UserContext } from "./Contexts/UserContext";
 import Dept from "./Pages/Admin/Dept";
+import Students from "./Pages/Admin/Students";
 import Auth from "./Pages/Auth";
 
 function App() {
@@ -65,6 +66,16 @@ function App() {
                 element={
                   userData?.accessLevel === 2 ? (
                     <Dept />
+                  ) : (
+                    <Navigate to="/" state={location.pathname} />
+                  )
+                }
+              />
+              <Route
+                path="/admin/students"
+                element={
+                  userData?.accessLevel === 2 ? (
+                    <Students />
                   ) : (
                     <Navigate to="/" state={location.pathname} />
                   )

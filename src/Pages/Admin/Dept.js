@@ -65,9 +65,10 @@ export default function Dept() {
         }))
       );
       enqueueSnackbar("Department added successfully", { variant: "success" });
-      return;
+      return true;
     }
     enqueueSnackbar("Department already exists", { variant: "error" });
+    return false;
   };
 
   const handleEdit = async (id, name, code) => {
@@ -89,7 +90,9 @@ export default function Dept() {
       enqueueSnackbar("Department updated successfully", {
         variant: "success",
       });
+      return;
     }
+    enqueueSnackbar("Department already exists", { variant: "error" });
   };
 
   const handleDelete = async (id) => {

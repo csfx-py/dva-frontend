@@ -38,7 +38,6 @@ export default function DashboardAdmin() {
   const handleUpdate = async (id, al) => {
     const res = await userApproval(id, al);
     if (res.success) {
-      console.log(res);
       setRows(
         res.users.map((user) => ({ ...user, newAccessLevel: user.accessLevel }))
       );

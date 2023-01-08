@@ -8,7 +8,12 @@ export default function AddDeptForm({ handleAdd }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await handleAdd(name, code);
+    const res = await handleAdd(name, code);
+
+    if (res) {
+      setName("");
+      setCode("");
+    }
   };
 
   return (
