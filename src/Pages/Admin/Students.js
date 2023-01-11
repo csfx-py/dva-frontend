@@ -57,7 +57,6 @@ export default function Students() {
     }
 
     const res = await addStudent(data);
-    console.log(res);
 
     if (res.success) {
       setGroups(res.groups);
