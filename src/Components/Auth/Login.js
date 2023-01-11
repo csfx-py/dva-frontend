@@ -108,6 +108,7 @@ export default function Login({ setInRegister }) {
               ? "Enter valid email"
               : ""
           }
+          autoFocus
         />
         <TextField
           type="password"
@@ -130,7 +131,9 @@ export default function Login({ setInRegister }) {
             userData.password.match(
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{6,})/
             ) === null
-              ? "Password must contain atleast 1 uppercase, 1 lowercase, 1 special character and 1 number and must be atleast 6 characters long"
+              ? `Password must contain atleast 1 uppercase, 
+              1 lowercase, 1 special character and 
+              1 number and must be atleast 6 characters long`
               : ""
           }
         />

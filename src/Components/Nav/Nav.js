@@ -63,11 +63,28 @@ function Nav() {
       },
     },
     {
+      id: "admin Access Control",
+      name: "Access Control",
+      handler: () => {
+        setAnchorElNav(null);
+        navigate("/admin/access-control");
+      },
+    },
+    {
       id: "admin Departments",
       name: "Departments",
       handler: () => {
         setAnchorElNav(null);
         navigate("/admin/dept");
+      },
+    },
+
+    {
+      id: "admin Management",
+      name: "Management",
+      handler: () => {
+        setAnchorElNav(null);
+        navigate("/admin/management");
       },
     },
     {
@@ -76,6 +93,14 @@ function Nav() {
       handler: () => {
         setAnchorElNav(null);
         navigate("/admin/students");
+      },
+    },
+    {
+      id: "admin Documents",
+      name: "Documents",
+      handler: () => {
+        setAnchorElNav(null);
+        navigate("/admin/docs");
       },
     },
   ];
