@@ -166,11 +166,6 @@ export default function DashboardAdmin() {
           </Grid>
         </Grid>
       </Paper>
-      <div
-        style={{
-          height: "200vh",
-        }}
-      ></div>
     </Container>
   );
 }
