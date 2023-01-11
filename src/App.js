@@ -10,7 +10,10 @@ import Nav from "./Components/Nav/Nav";
 import { AdminProvider } from "./Contexts/AdminContext";
 import { LoadingContext } from "./Contexts/LoadingContext";
 import { UserContext } from "./Contexts/UserContext";
+import AccessControl from "./Pages/Admin/AccessControl";
 import Dept from "./Pages/Admin/Dept";
+import Docs from "./Pages/Admin/Docs";
+import Management from "./Pages/Admin/Management";
 import Students from "./Pages/Admin/Students";
 import Auth from "./Pages/Auth";
 
@@ -62,6 +65,16 @@ function App() {
                 }
               />
               <Route
+                path="/admin/access-control"
+                element={
+                  userData?.accessLevel === 2 ? (
+                    <AccessControl />
+                  ) : (
+                    <Navigate to="/" state={location.pathname} />
+                  )
+                }
+              />
+              <Route
                 path="/admin/dept"
                 element={
                   userData?.accessLevel === 2 ? (
@@ -72,10 +85,30 @@ function App() {
                 }
               />
               <Route
+                path="/admin/management"
+                element={
+                  userData?.accessLevel === 2 ? (
+                    <Management />
+                  ) : (
+                    <Navigate to="/" state={location.pathname} />
+                  )
+                }
+              />
+              <Route
                 path="/admin/students"
                 element={
                   userData?.accessLevel === 2 ? (
                     <Students />
+                  ) : (
+                    <Navigate to="/" state={location.pathname} />
+                  )
+                }
+              />
+              <Route
+                path="/admin/docs"
+                element={
+                  userData?.accessLevel === 2 ? (
+                    <Docs />
                   ) : (
                     <Navigate to="/" state={location.pathname} />
                   )
