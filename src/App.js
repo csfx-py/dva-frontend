@@ -4,10 +4,10 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import DashboardAdmin from "./Components/Admin/Dashboard/Dashboard";
 import BoxContainer from "./Components/BoxContainer";
-import OnBoard from "./Components/Client/Dashboard/OnBoardForm";
 import Loading from "./Components/Loading";
 import Nav from "./Components/Nav/Nav";
 import { AdminProvider } from "./Contexts/AdminContext";
+import { ClientProvider } from "./Contexts/ClientContext";
 import { LoadingContext } from "./Contexts/LoadingContext";
 import { UserContext } from "./Contexts/UserContext";
 import AccessControl from "./Pages/Admin/AccessControl";
@@ -16,6 +16,7 @@ import Docs from "./Pages/Admin/Docs";
 import Management from "./Pages/Admin/Management";
 import Students from "./Pages/Admin/Students";
 import Auth from "./Pages/Auth";
+import Dashboard from "./Pages/Client/Dashboard";
 
 function App() {
   const { loading } = useContext(LoadingContext);
@@ -118,7 +119,9 @@ function App() {
                 path="/client/dashboard"
                 element={
                   userData ? (
-                    <OnBoard />
+                    <ClientProvider>
+                      <Dashboard />
+                    </ClientProvider>
                   ) : (
                     <Navigate to="/" state={location.pathname} />
                   )
